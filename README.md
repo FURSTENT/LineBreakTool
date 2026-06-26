@@ -10,3 +10,6 @@ CC0にしています。変更されることはありません<br>
 別サイトからreadmeをGitHubに移す時にけっこう便利です<br>
 <br>
 〔ダウンロードはこちら〕<br>
+<a href="https://github.com/FURSTENT/Tool_for_inserting_br_tags/releases/latest">
+  <img src="https://img.shields.io/github/v/release/FURSTENT/AirClock?label=Download&color=blue" alt="Latest Release">
+</a>

@@ -12,5 +12,5 @@ CC0にしています。変更されることはありません<br>
 〔ダウンロードはこちら〕<br>
 ⊂二二二二二二二二（　＾ω＾）二二二二二<a href="https://github.com/FURSTENT/Tool_for_inserting_br_tags/releases/latest">
   <img src="https://img.shields.io/github/v/release/FURSTENT/Tool_for_inserting_br_tags?label=Download&color=blue" alt="Latest Release">
-</a>二二二⊃ ブーン<br>
+</a>二二二⊃ <br>
 <br>

@@ -19,6 +19,6 @@ CC0にしています。変更されることはありません<br>
   <img src="https://img.shields.io/badge/Fix2_Version-blue" alt="Latest Release">
 </a>
 
-<a href="https://github.com/FURSTENT/Tool_for_inserting_br_tags/releases/tag/Fix2">
-  <img src="..." alt="...">
+<a href="https://github.com/FURSTENT/Tool_for_inserting_br_tags/releases/tag/SuperLite">
+  <img src="https://img.shields.io/github/v/release/FURSTENT/Tool_for_inserting_br_tags/SuperLite?label=Download&color=blue" alt="Latest Release SuperLite">
 </a>

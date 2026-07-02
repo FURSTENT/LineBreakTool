@@ -46,8 +46,6 @@
             // 入力されたテキストを取得
             const input = document.getElementById('inputText').value;
             
-            // 改行コード（Windowsの\r\n、Mac/Linuxの\n）を <br>\n に置換
-            // ※元の改行を残しつつ後ろに <br> を付ける仕様
             const output = input.replace(/\r?\n/g, '<br>\n');
             
             // 結果を出力用エリアにセット

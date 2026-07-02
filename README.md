@@ -10,7 +10,11 @@ CC0にしています。変更されることはありません<br>
 別サイトからreadmeをGitHubに移す時にけっこう便利です<br>
 <br>
 〔ダウンロードはこちら〕<br>
-⊂二二二二二二二二（　＾ω＾）二二二二二<a href="https://github.com/FURSTENT/Tool_for_inserting_br_tags/releases/latest">
+<a href="https://github.com/FURSTENT/Tool_for_inserting_br_tags/releases/tag/Fix2">
   <img src="https://img.shields.io/github/v/release/FURSTENT/Tool_for_inserting_br_tags?label=Download&color=blue" alt="Latest Release">
-</a>二二二⊃ <br>
-<br>
+</a>
+
+
+<a href="https://github.com/FURSTENT/Tool_for_inserting_br_tags/releases/tag/SuperLite">
+  <img src="https://img.shields.io/github/v/release/FURSTENT/Tool_for_inserting_br_tags?label=Download&color=blue" alt="Latest Release">
+</a>

@@ -17,12 +17,12 @@ CC0にしています。変更されることはありません<br>
 <br>
 〔ダウンロードはこちら〕<br>
 通常版はこちら⊂二二二二二二二二（ ＾ω＾）二二二<a href="https://github.com/FURSTENT/Tool_for_inserting_br_tags/releases/tag/Fix2">
-  <img src="https://img.shields.io/badge/Fix2_Version-blue" alt="Latest Release">
+  <img src="https://img.shields.io/badge/Fix2_Version-green" alt="Latest Release">
 </a>二二二⊃
 
 <br>
 SuperLite版はこちら
 ⊂二二二二二二二二（ ＾ω＾）二二二<a href="https://github.com/FURSTENT/Tool_for_inserting_br_tags/releases/tag/SuperLite">
-  <img src="https://img.shields.io/badge/SuperLite_Version-blue" alt="Latest Release">
+  <img src="https://img.shields.io/badge/SuperLite_Version-yellow" alt="Latest Release">
 </a>二二二⊃
 

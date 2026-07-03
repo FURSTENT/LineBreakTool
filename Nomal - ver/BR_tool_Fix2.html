@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>改行→br変換ツール</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+        .btn-group {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>テキスト改行変換ツール</h2>
+    <label for="inputText">ここにテキストをペースト：</label>
+    <textarea id="inputText" placeholder="テキストを貼り付けてください..." aria-label="入力テキスト"></textarea>
+
+    <div class="btn-group">
+        <label for="brType">出力の &lt;br&gt; 形式：</label>
+        <select id="brType" aria-label="br形式">
+            <option value="<br>">&lt;br&gt;</option>
+            <option value="<br/>">&lt;br/&gt;</option>
+            <option value="<br />">&lt;br /&gt;</option>
+        </select>
+        <button id="convertBtn">変換する</button>
+        <button id="copyBtn">結果をコピー</button>
+    </div>
+
+    <p>結果（ここに &lt;br&gt; 付きのテキストが出るよ）：</p>
+    <textarea id="outputText" readonly placeholder="変換結果がここに表示されます..." aria-label="変換結果"></textarea>
+
+    <p>プレビュー（HTMLとして表示）:</p>
+    <div id="preview" style="white-space: pre-wrap; border:1px solid #ddd; padding:10px; min-height:120px; background:#fff;" aria-live="polite"></div>
+
+    <script>
+        // 改行のUnicode種類に対応する正規表現
+        const newlineRegex = /\r\n|[\n\r\u0085\u2028\u2029]/g;
+
+        function convertText() {
+            const input = document.getElementById('inputText').value || '';
+            const br = document.getElementById('brType').value || '<br>';
+
+            // すべての改行文字を選択された br に置換（表示用に改行も残す）
+            const output = input.replace(newlineRegex, match => br + '\n');
+
+            document.getElementById('outputText').value = output;
+
+            // プレビュー用は HTML として表示する（安全のため最低限のエスケープを行う）
+            const preview = document.getElementById('preview');
+            // テキストをエスケープしてから br を復元
+            const escaped = escapeHtml(input).replace(newlineRegex, br + '\n');
+            preview.innerHTML = escaped.replace(/\n/g, '<br>');
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/[&<>\"]+/g, function (s) {
+                return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[s];
+            });
+        }
+
+        // コピー機能
+        function copyOutput() {
+            const out = document.getElementById('outputText');
+            out.select();
+            try {
+                document.execCommand('copy');
+            } catch (e) {
+                // フォールバック
+                navigator.clipboard && navigator.clipboard.writeText(out.value);
+            }
+            // 非表示でのフォーカス解除
+            window.getSelection().removeAllRanges();
+        }
+
+        // イベント登録
+        document.getElementById('convertBtn').addEventListener('click', convertText);
+        document.getElementById('copyBtn').addEventListener('click', copyOutput);
+
+        // Ctrl/Cmd + Enter で変換
+        document.getElementById('inputText').addEventListener('keydown', function (e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                convertText();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -48,8 +48,9 @@
     <p>結果（ここに &lt;br&gt; 付きのテキストが出るよ）：</p>
     <textarea id="outputText" readonly placeholder="変換結果がここに表示されます..." aria-label="変換結果"></textarea>
 
-    <p>プレビュー（HTMLとして表示）:</p>
-    <div id="preview" style="white-space: pre-wrap; border:1px solid #ddd; padding:10px; min-height:120px; background:#fff;" aria-live="polite"></div>
+    <label><input type="checkbox" id="showPreview"> プレビューを表示</label>
+    <p id="previewLabel" style="display:none">プレビュー（HTMLとして表示）:</p>
+    <div id="preview" style="display:none; white-space: pre-wrap; border:1px solid #ddd; padding:10px; min-height:120px; background:#fff;" aria-live="polite"></div>
 
     <script>
         // 改行のUnicode種類に対応する正規表現
@@ -94,6 +95,15 @@
         // イベント登録
         document.getElementById('convertBtn').addEventListener('click', convertText);
         document.getElementById('copyBtn').addEventListener('click', copyOutput);
+
+        // プレビュー表示トグル
+        const showPreview = document.getElementById('showPreview');
+        showPreview.addEventListener('change', function () {
+            const on = this.checked;
+            document.getElementById('preview').style.display = on ? 'block' : 'none';
+            document.getElementById('previewLabel').style.display = on ? 'block' : 'none';
+            if (on) convertText();
+        });
 
         // Ctrl/Cmd + Enter で変換
         document.getElementById('inputText').addEventListener('keydown', function (e) {

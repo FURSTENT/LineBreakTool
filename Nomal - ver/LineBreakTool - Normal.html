@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>改行→br変換ツール</title>
+    <title>LineBreakTool</title>
     <style>
         body {
             font-family: sans-serif;
@@ -35,18 +35,23 @@
     <textarea id="inputText" placeholder="テキストを貼り付けてください..." aria-label="入力テキスト"></textarea>
 
     <div class="btn-group">
-        <label for="brType">出力の &lt;br&gt; 形式：</label>
-        <select id="brType" aria-label="br形式">
-            <option value="<br>">&lt;br&gt;</option>
-            <option value="<br/>">&lt;br/&gt;</option>
-            <option value="<br />">&lt;br /&gt;</option>
+        <label for="targetLang">変換先言語:</label>
+        <select id="targetLang" aria-label="変換先言語">
+            <option value="html">HTML (br タグ)</option>
+            <option value="markdown">Markdown (行末に2スペース)</option>
+            <option value="escaped">エスケープ (\n 表現)</option>
+            <option value="json">JSON 文字列用</option>
+            <option value="url">URL エンコード (%0A)</option>
         </select>
         <button id="convertBtn">変換する</button>
-        <button id="copyBtn">結果をコピー</button>
     </div>
 
     <p>結果（ここに &lt;br&gt; 付きのテキストが出るよ）：</p>
     <textarea id="outputText" readonly placeholder="変換結果がここに表示されます..." aria-label="変換結果"></textarea>
+
+    <div class="btn-group">
+        <button id="copyBtn">結果をコピー</button>
+    </div>
 
     <label><input type="checkbox" id="showPreview"> プレビューを表示</label>
     <p id="previewLabel" style="display:none">プレビュー（HTMLとして表示）:</p>
@@ -58,18 +63,42 @@
 
         function convertText() {
             const input = document.getElementById('inputText').value || '';
-            const br = document.getElementById('brType').value || '<br>';
+            const br = '<br>';
+            const target = document.getElementById('targetLang').value || 'html';
 
-            // すべての改行文字を選択された br に置換（表示用に改行も残す）
-            const output = input.replace(newlineRegex, match => br + '\n');
+                let output;
+                if (target === 'html') {
+                    output = input.replace(newlineRegex, match => br + '\n');
+                } else if (target === 'markdown') {
+                    output = input.replace(newlineRegex, match => '  \n');
+                } else if (target === 'escaped') {
+                    // 改行を文字列内のエスケープ表現にする (\n)
+                    output = input.replace(newlineRegex, match => '\\n');
+                } else if (target === 'json') {
+                    // JSON用にエスケープ（" と \ をエスケープ）
+                    const escapedForJson = input.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+                    output = escapedForJson.replace(newlineRegex, match => '\\n');
+                } else if (target === 'url') {
+                    output = input.replace(newlineRegex, match => '%0A');
+                } else {
+                    output = input;
+                }
 
-            document.getElementById('outputText').value = output;
+                // wrap option removed; no additional wrapping
 
-            // プレビュー用は HTML として表示する（安全のため最低限のエスケープを行う）
-            const preview = document.getElementById('preview');
-            // テキストをエスケープしてから br を復元
-            const escaped = escapeHtml(input).replace(newlineRegex, br + '\n');
-            preview.innerHTML = escaped.replace(/\n/g, '<br>');
+                document.getElementById('outputText').value = output;
+
+                // プレビュー: HTMLターゲットのときは HTML として表示、それ以外はテキストで表示
+                const preview = document.getElementById('preview');
+                if (document.getElementById('showPreview').checked) {
+                    if (target === 'html') {
+                        const escaped = escapeHtml(input).replace(newlineRegex, br + '\n');
+                        preview.innerHTML = escaped.replace(/\n/g, '<br>');
+                    } else {
+                        // 非HTMLはそのままテキスト表示（エスケープ済み）
+                        preview.textContent = output;
+                    }
+                }
         }
 
         function escapeHtml(text) {
